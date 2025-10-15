@@ -45,11 +45,10 @@ function reducer(state, action) {
         loan: state.loan === 0 ? state.loan : state.loan - 5000,
       };
     case "closeAccount":
-      return {
-        ...state,
-        isActive:
-          state.loan === 0 && state.balance === 0 ? false : state.isActive,
-      };
+      if (state.loan > 0 || state.balance !== 0) {
+        return state;
+      }
+      return initialState;
     default:
       throw new Error("Unknown action.type dispatched to reducer");
   }
